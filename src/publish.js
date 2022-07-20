@@ -77,7 +77,8 @@ module.exports = function publish(client_id, client_info, client_history) {
         ST.Down, ST.Flat, ST.Up],
     };
 
-    let predicted = await MLPredict(data);
+    //let predicted = await MLPredict(data); //not work at the Raspberry Pi yet because of version conflict
+    let predicted = (Math.random()>=0.5)? 1 : 0;
     count += predicted;
     if(count == 5) {
       let from = "Vonage APIs";
