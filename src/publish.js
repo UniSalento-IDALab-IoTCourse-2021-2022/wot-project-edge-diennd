@@ -47,7 +47,7 @@ module.exports = function publish(client_id, client_info, client_history) {
     let restingBP = Math.floor(Math.random() * 200); // 0-200
     let cholesterol = Math.floor(Math.random() * 603); //0-603
     let fastingBS = Math.floor(Math.random() * 120 + 80);  // if > 120 mg/dl -> 1 || 0
-    let restingECG = Math.floor(Math.random() * 4); // 3 types
+    let restingECG = Math.floor(Math.random() * 3); // 3 types
     let MaxHR = Math.floor(Math.random() * 142 + 60);  // 60-202
 
     // Local analyze
@@ -69,11 +69,15 @@ module.exports = function publish(client_id, client_info, client_history) {
     let CP = client_history.ChestPainType;
     let ST = client_history.ST_Slope;
 
+    const RECG = [[1, 0, 0],
+      [0, 1, 0],
+      [0, 0, 1]]
+
     var data = {
       array: [client_info.age, client_info.gender, restingBP,
         cholesterol, fastingBS, MaxHR, ExerciseAngina, OldPeak,
         CP.ASY, CP.ATA, CP.NAP, CP.TA,
-        1, 0, 0,
+        RECG[restingECG][0], RECG[restingECG][1], RECG[restingECG][2],
         ST.Down, ST.Flat, ST.Up],
     };
 
