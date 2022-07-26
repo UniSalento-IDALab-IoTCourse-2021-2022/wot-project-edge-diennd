@@ -46,7 +46,7 @@ module.exports = function publish(client_id, client_info, client_history) {
 
     let restingBP = Math.floor(Math.random() * 200); // 0-200
     let cholesterol = Math.floor(Math.random() * 603); //0-603
-    let fastingBS = Math.floor(Math.random() * 120 + 80);  // if > 120 mg/dl -> 1 || 0
+    let fastingBS = Math.floor(Math.random() * 120 + 80);  // mg/dl -> 1 || 0
     let restingECG = Math.floor(Math.random() * 3); // 3 types
     let MaxHR = Math.floor(Math.random() * 142 + 60);  // 60-202
 
@@ -63,7 +63,6 @@ module.exports = function publish(client_id, client_info, client_history) {
     //   //send message to the doctor via twillio or vonage
     // }
 
-    // Local analyze the data of the patient
     let ExerciseAngina = client_history.ExerciseAngina;
     let OldPeak = client_history.OldPeak;
     let CP = client_history.ChestPainType;
@@ -75,7 +74,7 @@ module.exports = function publish(client_id, client_info, client_history) {
 
     var data = {
       array: [client_info.age, client_info.gender, restingBP,
-        cholesterol, fastingBS, MaxHR, ExerciseAngina, OldPeak,
+        cholesterol, (fastingBS>=120)? 1 : 0, MaxHR, ExerciseAngina, OldPeak,
         CP.ASY, CP.ATA, CP.NAP, CP.TA,
         RECG[restingECG][0], RECG[restingECG][1], RECG[restingECG][2],
         ST.Down, ST.Flat, ST.Up],
