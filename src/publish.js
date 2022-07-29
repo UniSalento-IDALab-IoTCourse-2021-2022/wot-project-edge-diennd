@@ -44,25 +44,14 @@ module.exports = function publish(client_id, client_info, client_history) {
     //var temperature = readout.temperature.toFixed(1)
     ////console.log('Temperature:', temperature + 'C');
 
-    let restingBP = Math.floor(Math.random() * 200); // 0-200
-    let cholesterol = Math.floor(Math.random() * 603); //0-603
-    let fastingBS = Math.floor(Math.random() * 120 + 80);  // mg/dl -> 1 || 0
+    // Generate random data
+    let restingBP = Math.floor(Math.random() * 200); // 0-200 mmHg
+    let cholesterol = Math.floor(Math.random() * 603); //0-603 mg/dL
+    let fastingBS = Math.floor(Math.random() * 120 + 80);  // 80-200 mg/dl
     let restingECG = Math.floor(Math.random() * 3); // 3 types
-    let MaxHR = Math.floor(Math.random() * 142 + 60);  // 60-202
+    let MaxHR = Math.floor(Math.random() * 142 + 60);  // 60-202 BPM
 
-    // Local analyze
-    // if (
-    //     restingBP < 36 ||
-    //     cholesterol > 37.5 ||
-    //     fastingBS > 120 ||
-    //     restingECG > 150 ||
-    //     MaxHR < 95
-    // ) {
-    //   console.log("Dangerous case!");
-    //   //play alert sound & LED turns on
-    //   //send message to the doctor via twillio or vonage
-    // }
-
+    // Get historical data
     let ExerciseAngina = client_history.ExerciseAngina;
     let OldPeak = client_history.OldPeak;
     let CP = client_history.ChestPainType;
@@ -88,7 +77,7 @@ module.exports = function publish(client_id, client_info, client_history) {
       let to = "393313432937";
       let text = 'Client ' + client_id + ' was predicted 5 times with heart failure. Check now! http://localhost:63342/wot-project-part1-diennguyenduy/Web/Doctor/live_record.html?_ijt=3vcqe2ecj6k4sgigppsufu9muj&_ij_reload=RELOAD_ON_SAVE';
 
-      //sendMessage(from, to, text);
+      sendMessage(from, to, text);
     }
 
     const body_data = JSON.stringify({
